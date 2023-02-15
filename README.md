@@ -42,7 +42,7 @@ Booth's algorithm is a multiplication of binary numbers, where the speed of oper
 
 ## `Column division`
 
-> *Dividend = Quotient * Divisor + Remainder
+> *Dividend* = *Quotient* * *Divisor* + *Remainder*
 
 On each step of the algorithm:
 * Shifting the Divisor to the right and comparing it to *Dividend*
@@ -59,4 +59,15 @@ On each step of the algorithm:
 <p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219139077-744947ee-d6e9-4a8d-8a9e-f01860574629.png" width="500" height="350" /></p>
 <p align="center">Algorithm of division with a quotient and a remainder in one register</p>
 
+IEEE 754 is a widely used floating-point number representation format standard used in both software implementations of arithmetic operations and many hardware (CPU and FPU) implementations. Many compiler programming languages use this standard to store numbers and perform mathematical operations on them
 
+This standard defines:
+* Floating-point binary and decimal data formats for data exchange and data exchange
+* Addition, subtraction, multiplication, division
+* Convert between integer and floating point formats
+* Exceptions in floating-point operations and their handling, including non-numeric data
+
+The standard of real number:
+* 1 bit - sign
+* 8 bits – the exponent
+* 23 bits - mantissa
