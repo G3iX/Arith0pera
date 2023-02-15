@@ -33,7 +33,7 @@ Booth's algorithm is a multiplication of binary numbers, where the speed of oper
   - The beginning of the unit sequence
 * **11** - do nothing
   - The middle of the unit sequence
-* 01 – add Multiplicand to Product
+* **01** – add Multiplicand to Product
   - The end of the unit sequence
 * Move the resulting case (Product) to the right
 
@@ -52,12 +52,6 @@ On each step of the algorithm:
 <p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219138767-feaefc54-d6ac-4a6b-8bf2-8484c45f878e.png" width="500" height="350" /></p>
 <p align="center">Column division</p>
 
-
-<p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219138869-430ef155-8ce1-4af5-bbb2-05f6977fff92.png" width="500" height="350" /></p>
-<p align="center">The division algorithm based on the shift of the remainder to the right</p>
-
-<p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219139077-744947ee-d6e9-4a8d-8a9e-f01860574629.png" width="500" height="350" /></p>
-<p align="center">Algorithm of division with a quotient and a remainder in one register</p>
 
 IEEE 754 is a widely used floating-point number representation format standard used in both software implementations of arithmetic operations and many hardware (CPU and FPU) implementations. Many compiler programming languages use this standard to store numbers and perform mathematical operations on them
 
