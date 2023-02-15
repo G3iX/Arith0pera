@@ -52,6 +52,7 @@ On each step of the algorithm:
 <p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219138767-feaefc54-d6ac-4a6b-8bf2-8484c45f878e.png" width="500" height="350" /></p>
 <p align="center">Column division</p>
 
+## `IEEE 754`
 
 IEEE 754 is a widely used floating-point number representation format standard used in both software implementations of arithmetic operations and many hardware (CPU and FPU) implementations. Many compiler programming languages use this standard to store numbers and perform mathematical operations on them
 
