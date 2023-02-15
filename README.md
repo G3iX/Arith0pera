@@ -15,6 +15,48 @@ Column multiplication is the process of addition + shift. At the same time, the 
 
 Multiplication based on the shift of the result to the right is faster than addition, because instead of addition, the operation of shifting the result to the right is used at each subsequent step
 
-<p align="center" alt="alt text"><img src="![image](https://user-images.githubusercontent.com/86187704/219133954-2b526295-b925-4001-8ec9-58c52ad4ef88.png)
-" width="500" height="350" /></p>
+<p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219133954-2b526295-b925-4001-8ec9-58c52ad4ef88.png" width="500" height="350" /></p>
 <p align="center">Multiplication algorithm based on shifting the result to the right</p>
+
+Multiplier in the right part of the register - the LSB of the multiplier is available, a single register is used to shift to the right 32 times, the more units - the more you need to add
+<p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219134758-d20b1623-0de9-414b-9234-028b705eb58b.png" width="500" height="350" /></p>
+<p align="center">The multiplication algorithm is the multiplier in the right part of the register</p>
+
+Booth's algorithm is a multiplication of binary numbers, where the speed of operation is the main aspect, the engineering task of which is to reduce the number of additions. The algorithm also works for signed numbers. The key idea is to convert the addition of a sequence of units into 1 addition and 1 subtraction
+
+## `Booth's algorithm`:
+
+* Starting from LSB Multiplier (2nd multiplier), 2 bits are analyzed
+  - Add 0 to the right before starting
+* **00** - do nothing
+* **10** – subtract the *Multiplicand* (1st multiplier) from the *Product*
+  - The beginning of the unit sequence
+* **11** - do nothing
+  - The middle of the unit sequence
+* 01 – add Multiplicand to Product
+  - The end of the unit sequence
+* Move the resulting case (Product) to the right
+
+<p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219134252-461d359b-1806-4f0a-a1b2-13d23fd25d58.png" width="500" height="550" /></p>
+<p align="center">Booth's multiplication algorithm</p>
+
+## `Column division`
+
+> *Dividend = Quotient * Divisor + Remainder
+
+On each step of the algorithm:
+* Shifting the Divisor to the right and comparing it to *Dividend*
+* If the *Divisor* is larger, the next bit of *Quotient* = 0
+* If *Divisor* is less - subtract, the next bit of *Quotient* = 1
+
+<p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219138767-feaefc54-d6ac-4a6b-8bf2-8484c45f878e.png" width="500" height="350" /></p>
+<p align="center">Column division</p>
+
+
+<p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219138869-430ef155-8ce1-4af5-bbb2-05f6977fff92.png" width="500" height="350" /></p>
+<p align="center">The division algorithm based on the shift of the remainder to the right</p>
+
+<p align="center" alt="alt text"><img src="https://user-images.githubusercontent.com/86187704/219139077-744947ee-d6e9-4a8d-8a9e-f01860574629.png" width="500" height="350" /></p>
+<p align="center">Algorithm of division with a quotient and a remainder in one register</p>
+
+
