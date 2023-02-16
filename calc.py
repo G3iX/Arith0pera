@@ -1,4 +1,47 @@
+# Ver 3 - Working
+def binary_array_column_sum(input_array):
+    # Find the maximum length of the binary strings in the array
+    max_len = max(len(x) for x in input_array)
+    print("max_len =",max_len)
+    # Pad each binary string with leading zeroes to make them the same length
+    input_array = [x.zfill(max_len) for x in input_array]
+    print("input_array =", input_array )
+    # Initialize the result as a list of zeroes
+    result = [0] * (max_len + 1)
+    print("result =", result)
+    # Add up the binary numbers as done in columns
+    for i in range(max_len - 1, -1, -1):
+        column_sum = sum(int(x[i]) for x in input_array) + result[i + 1]
+        # print("column_sum = ", result)
+        result[i + 1] = column_sum % 2
+        result[i] += column_sum // 2
+        # print("result num = ", result)
+    # Convert the result to a binary string and return it
+    result = "".join(str(x) for x in result).lstrip("0")
+    return result
 
+# Ver 1 - Working
+def binary_addition(input_array):
+    if len(input_array) < 2:
+        return input_array[0]
+    result = ""
+    for i in range(0, len(input_array),1): # [::-1]
+        temp = ""
+        try:
+            print("i = ", input_array[i])  # bin(int(i,2))[2:])
+            x_1 = input_array[i][::-1]
+            y_1 = input_array[i+1][::-1]
+            # print()
+            for j in x_1:
+                temp = j
+            # CRINGE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        except:
+            return None
+
+# Ver 2 - Working
+def binary_array_sum(arr):
+    total = sum(int(x, 2) for x in arr)
+    return bin(total)[2:]
 def binary_multiplication(x, y):
     # convert x and y to binary strings if they are not already binary strings
     if isinstance(x, int):
@@ -9,13 +52,11 @@ def binary_multiplication(x, y):
     # pad x and y with leading zeroes to make them the same length
     n = max(len(x), len(y))
     print("n = ", n)
-    x = x.zfill(n) # make same str len
+    # make same strings length
+    x = x.zfill(n)
     y = y.zfill(n)
     print("x = ", x, "; y = ", y)
     # perform multiplication as done in columns
-    # result = "0" * (2 * n)
-    result = ""
-    #print("result '0'*(2*n) = ", result)
     temp_arr = []
     index = 1
     for i in y:
@@ -23,27 +64,7 @@ def binary_multiplication(x, y):
             temp = x + (n-index)*"0"
             temp_arr.append(temp)
         index += 1
-    print(temp_arr)
-    #for i in range(n): # INCORRECT !
-    #    for j in range(n):
-    #        if y[n - 1 - j] == "1": # each time we see 1 in y.binary number we do this
+    temp_arr.reverse()
+    return temp_arr
 
-
-                # result += bin(int( (str(int(x, 2)),"0"*j),2 ))
-
-                # temp = str(x) + "0"*j
-                # int_temp = int(temp)
-                # result = result + bin(int_temp)[2:]
-
-                # temp = int(result[2 * n - i - j - 1], 2) + int(x[n - 1 - i], 2)
-                # result = result[:2 * n - i - j - 1] + bin(temp)[2:].zfill(1) + result[2 * n - i - j:]
-    #print("result_start = ", result)
-    # remove leading zeroes from the result and return it
-    print("result = ", result.lstrip("0") ) # or "0"
-    return result.lstrip("0") #  or "0"
-
-binary_multiplication("1100", "1111")
-print("------------")
-binary_multiplication("1010", "101")
-# x = binary_multiplication(13, 5) # 01000001 not 001111001
-# print(int(x,2))
+print(binary_array_column_sum(binary_multiplication("1100", "1111")))
