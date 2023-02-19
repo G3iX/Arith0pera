@@ -38,12 +38,12 @@ def decToBinary(n):
     return  res
 
 # Driver Code
-n = -3
+n = -10
 result = decToBinary(n)
 # print(result[2:]) # show starting from beginning
 # print(result[:35]) # show starting from end
 #print(str(n))
-# print(result)
+print(result)
 if len(str(n)) <= 2 and '-' in str(n):
     amount = 4
     #print(result[len(result)-amount:])
@@ -64,3 +64,39 @@ from calc import binary_multiplication
 # varib = binary_multiplication(-3,4)
 # print(varib[xol:])
 # print(int(varib[xol:],2))
+
+def int_to_binary(n):
+    num = n
+    if n == 0:
+        return [0]
+    bits = []
+    while n != 0:
+        if n < 0:
+            bits.append(1)
+            # result += str(1)
+            n = abs(n) - 1
+        else:
+            bits.append(n % 2)
+            # result += str(n%2)
+            n //= 2
+    # print(bits)
+    if 10 > num > 0:
+        bits.append(0)
+        bits.append(0)
+    elif num >= 10:
+        bits.append(0)
+    if -10 < num < 0:
+        bits.append(1)
+    #elif num <= -10:
+    #    bits.append(1)
+    bits.reverse()
+
+
+    # print(result)
+    # return result[::-1]
+    return bits
+
+print(int_to_binary(-3)) # 0, 1, 0, 1, 0 = 1010; [10] 0 1010 = [-10] 10101 + 1 ( 1 0110 )
+
+# need to read negative numbers ? will just do '-' in the beginning of the string, because inversion and etc. -> too long
+# if strting
