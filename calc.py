@@ -9,16 +9,18 @@ def binary_array_column_sum(input_array):
     print("input_array =", input_array )
     # Initialize the result as a list of zeroes
     result = [0] * (max_len + 1)
-    print("result =", result)
+    # print("result =", result)
     # Add up the binary numbers as done in columns
     for i in range(max_len - 1, -1, -1):
-        column_sum = sum(int(x[i]) for x in input_array) + result[i + 1]
+        column_sum = sum(int(x[i]) for x in input_array) + result[i + 1] # can't eat '-' numbers
+        # тут надо реализация дополнительного кода числа с отрицанием(?)
         # print("column_sum = ", result)
         result[i + 1] = column_sum % 2
         result[i] += column_sum // 2
         # print("result num = ", result)
     # Convert the result to a binary string and return it
     result = "".join(str(x) for x in result).lstrip("0")
+    print("result =", result)
     return result
 
 # Ver 1 - NOT Working
@@ -66,6 +68,6 @@ def binary_multiplication(x, y):
             temp_arr.append(temp)
         index += 1
     temp_arr.reverse()
-    return temp_arr
+    return binary_array_column_sum(temp_arr)
 
-print(binary_array_column_sum(binary_multiplication("1100", "1111")))
+# (binary_multiplication("1100", "1111"))
