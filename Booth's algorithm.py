@@ -1,4 +1,15 @@
 
+
+
+
+
+
+
+
+
+
+
+
 def booth_algorithm(x, y):
     # convert x and y to binary strings if they are not already binary strings
     if isinstance(x, int):
@@ -96,7 +107,7 @@ def int_to_binary(n):
     # return result[::-1]
     return bits
 
-print(int_to_binary(-3)) # 0, 1, 0, 1, 0 = 1010; [10] 0 1010 = [-10] 10101 + 1 ( 1 0110 )
+# print(int_to_binary(-3)) # 0, 1, 0, 1, 0 = 1010; [10] 0 1010 = [-10] 10101 + 1 ( 1 0110 )
 
 # need to read negative numbers ? will just do '-' in the beginning of the string, because inversion and etc. -> too long
-# if strting
+# if strting starts from "-" will (delete '-' & split it to arr + arr.reverse)be
