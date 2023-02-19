@@ -20,7 +20,7 @@ def binary_array_column_sum(input_array):
     result = "".join(str(x) for x in result).lstrip("0")
     return result
 
-# Ver 1 - Working
+# Ver 1 - NOT Working
 def binary_addition(input_array):
     if len(input_array) < 2:
         return input_array[0]
