@@ -1,3 +1,4 @@
+# done multiplication in a column (but then received another task, Booth's algorithm)
 # Ver 3 - Working
 def binary_array_column_sum(input_array):
     # Find the maximum length of the binary strings in the array
