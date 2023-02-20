@@ -9,10 +9,11 @@ def binary_refacor(input_array):
     #    result += i
     return input_array
 
-def binary_array_sum(input_array):
+def binary_array_sum(input_array, we_need_string, if_output_array_in_string): # unoptimized option, i'll try to delete it after
+    print("------------------------binary_array_sum-----------------------------")
     # Find the maximum length of the binary strings in the array
     max_len = max(len(x) for x in input_array)
-    print("max_len =",max_len)
+    # print("max_len =",max_len)
     # Pad each binary string with leading zeroes to make them the same length
     input_array = [x.zfill(max_len) for x in input_array]
     print("input_array =", input_array )
@@ -27,10 +28,25 @@ def binary_array_sum(input_array):
         result[i + 1] = column_sum % 2
         result[i] += column_sum // 2
         # print("result num = ", result)
-    # Convert the result to a binary string and return it
-    result = "".join(str(x) for x in result).lstrip("0")
-    print("result =", result)
-    return result
+    #print("binary_array_sum result", result)
+    #print('-------------')
+    if we_need_string:      # Convert the result to a binary string and return it
+        result = "".join(str(x) for x in result).lstrip("0")
+        print("result =", result)
+        return result
+    else:                   # Convert the result to an array and return it
+        if if_output_array_in_string:
+            string_result = []
+            for i in result:
+                string_result.append(str(i))
+            string_result.pop(0)
+            print('arr string', string_result)
+            print('-------------')
+            return string_result
+        if result[0]=='0' or '1':
+            result.pop(0)
+        print('before joint(arr int)', result)
+        return result
 
 def binary_reverse(input_array):
     for i in range(len(input_array)-1):
@@ -44,12 +60,13 @@ def binary_reverse(input_array):
             for i in input_array:
                 temp += i
             try:
-                negative_input_array = binary_array_sum([temp, "1"])
+                negative_input_array = binary_array_sum([temp, "1"], True, False)
             except:
                 print("aboba error")
     return negative_input_array
 
 def booth_algo(m, negative_m ,r):
+    print("------------------------booth_algo-----------------------------")
     n = max(len(m), len(r))
     toll = n * 2 + 1
 
@@ -57,47 +74,73 @@ def booth_algo(m, negative_m ,r):
     S = negative_m.ljust(toll, '0')
     P = r.zfill(toll - 1)
     P += '0'
-    print(' '+ A,'\n', S, '\n', P)
+    # print(' '+ A,'\n', S, '\n', P)
     temp = list(P)
     i = 0
-    for i in range(len(temp),0,-2):
-        print(temp[i-1], temp[i-2])
+    print('temp start = ', temp)
+    #for i in range(len(temp)-1,0,-2):
+    #    print("pair of", str(i)+":",temp[i-1], temp[i])
         # print(temp[i], temp[i-1])
-    while True:
-        try:
-            took_last = temp.pop(len(temp))
-            pre_last = temp[len(temp)]
-            if took_last+pre_last=="00":
-                if temp[0] == '0':
-                    temp.insert(0,'0')
-                else:
-                    temp.insert(0,'1')
-            elif took_last+pre_last=="01":
-                print("idk")
-            elif took_last + pre_last == "10":
-                print("'10' chance probe:")
-                P = binary_array_sum([P, S])
-                print("P == ", P) # 1110 1001 1
-                temp.pop(len(temp)) # Arithmetical - to right
-                if temp[0] == '0':
-                    temp.insert(0, '0')
-                else:
-                    temp.insert(0, '1')
-            elif took_last + pre_last == "11":
-                temp.pop(len(temp))  # Arithmetical - to right
-                if temp[0] == '0':
-                    temp.insert(0, '0')
-                else:
-                    temp.insert(0, '1')
-                break;
+
+    i = 0
+    while True: # true i < 10
+        # temp = temp
+        print("temp array:",temp)
+        pre_last = temp[len(temp) - 2]  #
+        took_last = temp.pop(len(temp)-1)  # Arithmetical - to right
+        # print()
+
+        print(f"took last: {took_last} and pre_last {pre_last}")
+        if pre_last+took_last == "00":
+            # print(temp[0])
+            if temp[0] == '0':
+                temp.insert(0,'0')
+            else:
+                temp.insert(0,'1')
+            print(f'temp after insert :00: {temp}')
+            continue
+
+        elif pre_last+took_last == "01":
+            print("idk")
+            continue
+
+        elif pre_last+took_last == "10":
+            print("'10' chance probe:")
+
+
+
+            #minor_temp = temp[0:len(temp)]
+            # minor_temp.append('0')
+            print("minor_temp = ",minor_temp)
+            if_10 = "".join(str(x) for x in minor_temp) # if_10 must be another????????????????????
+            # not 000000011 but 000000110
+            temp = binary_array_sum([if_10, S], False, True) # NOT P, but temp insertion and !p=p but temp = temp
+
+
+            print("P == ", P) # 1110 1001 1
+            # temp.pop(len(temp)-1)
+            if temp[0] == '0':
+                temp.insert(0, '0')
+            else:
+                temp.insert(0, '1')
+            continue
+
+        elif took_last + pre_last == "11":
+            print("'11' chance probe:")
+            # temp.pop(len(temp)-1)  # Arithmetical - to right
+            if temp[0] == '0':
+                temp.insert(0, '0')
+            else:
+                temp.insert(0, '1')
             result = ''
-            for i in temp:
-                result += i
-            print(result)
+            for j in temp:
+                result += str(j)
+            print("result =", result)
             return result
-        except:
-            print("break datebajo")
-            break;
+       # i += 1
+
+
+
 def booth_multiplication(x, y):
     # receive bite string or int
     # convert x and y to binary strings if they are not already binary strings
