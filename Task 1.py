@@ -58,6 +58,46 @@ def booth_algo(m, negative_m ,r):
     P = r.zfill(toll - 1)
     P += '0'
     print(' '+ A,'\n', S, '\n', P)
+    temp = list(P)
+    i = 0
+    for i in range(len(temp),0,-2):
+        print(temp[i-1], temp[i-2])
+        # print(temp[i], temp[i-1])
+    while True:
+        try:
+            took_last = temp.pop(len(temp))
+            pre_last = temp[len(temp)]
+            if took_last+pre_last=="00":
+                if temp[0] == '0':
+                    temp.insert(0,'0')
+                else:
+                    temp.insert(0,'1')
+            elif took_last+pre_last=="01":
+                print("idk")
+            elif took_last + pre_last == "10":
+                print("'10' chance probe:")
+                P = binary_array_sum([P, S])
+                print("P == ", P) # 1110 1001 1
+                temp.pop(len(temp)) # Arithmetical - to right
+                if temp[0] == '0':
+                    temp.insert(0, '0')
+                else:
+                    temp.insert(0, '1')
+            elif took_last + pre_last == "11":
+                temp.pop(len(temp))  # Arithmetical - to right
+                if temp[0] == '0':
+                    temp.insert(0, '0')
+                else:
+                    temp.insert(0, '1')
+                break;
+            result = ''
+            for i in temp:
+                result += i
+            print(result)
+            return result
+        except:
+            print("break datebajo")
+            break;
 def booth_multiplication(x, y):
     # receive bite string or int
     # convert x and y to binary strings if they are not already binary strings
@@ -115,4 +155,6 @@ def booth_multiplication(x, y):
     print(x_binary_str, arr_x_negative_binary_number, y_binary_str)
     booth_algo(x_binary_str, arr_x_negative_binary_number, y_binary_str)
     # if
+
+
 booth_multiplication(3,-4)
