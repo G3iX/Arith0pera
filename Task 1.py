@@ -43,8 +43,8 @@ def binary_array_sum(input_array, we_need_string, if_output_array_in_string): # 
             print('arr string', string_result)
             print('-------------')
             return string_result
-        if result[0]=='0' or '1':
-            result.pop(0)
+        # if result[0]=='0' or '1':
+        #    result.pop(0)
         print('before joint(arr int)', result)
         return result
 
@@ -65,12 +65,75 @@ def binary_reverse(input_array):
                 print("aboba error")
     return negative_input_array
 
-def booth_algo(m, negative_m ,r):
-    print("------------------------booth_algo-----------------------------")
+def booth_algo_def(m, negative_m ,r):
+    print("-----------------------booth_algo_def-------------------------")
     n = max(len(m), len(r))
     toll = n * 2 + 1
 
     A = m.ljust(toll, '0')
+    S = negative_m.ljust(toll, '0')
+    P = r.zfill(toll - 1)
+    P += '0'
+
+    temp = list(P)
+    print('temp start = ', temp)
+
+    while True:
+        pre_last = temp[len(temp) - 2]  #
+        took_last = temp[len(temp) - 1]  # Arithmetical - to right
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print(f"took pre_last: {pre_last} and last: {took_last}")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        if pre_last+took_last == "00":
+            print("'00' chance probe:")
+            temp.pop(len(temp) - 1)
+            if temp[0] == '0':
+                temp.insert(0,'0')
+            else:
+                temp.insert(0,'1')
+            print(f'temp after insert :00: {temp}')
+            continue
+
+        elif pre_last+took_last == "01":
+            print("'01' chance probe:")
+            print("idk")
+            # P = P + A
+            continue
+
+        elif pre_last+took_last == "10":
+            print("'10' chance probe:")
+            if_10 = "".join(str(x) for x in temp)
+            temp = binary_array_sum([if_10, S], False, True)
+            temp.pop(len(temp) - 1)
+
+            if temp[0] == '0':
+                temp.insert(0, '0')
+                print(f"'10' probe inserted {temp}:")
+            else:
+                temp.insert(0, '1')
+                print(f"'10' probe inserted {temp}:")
+            continue
+
+        elif took_last + pre_last == "11":
+            print("'11' chance probe:")
+            temp.pop(len(temp) - 1)
+            if temp[0] == '0':
+                temp.insert(0, '0')
+            else:
+                temp.insert(0, '1')
+            result = ''
+            temp.pop(len(temp) - 1)
+            for j in temp:
+                result += str(j)
+            print(f"result = {result} and int {int(result[1:len(result)], 2)} and {result[1:len(result)]}") #
+            return result
+
+def booth_algo(m, negative_m ,r): # not working
+    print("------------------------booth_algo-----------------------------")
+    n = max(len(m), len(r))
+    toll = n * 2 + 1
+    A = m.ljust(toll, '0')
+    # print(f"A = {A}")
     S = negative_m.ljust(toll, '0')
     P = r.zfill(toll - 1)
     P += '0'
@@ -81,16 +144,15 @@ def booth_algo(m, negative_m ,r):
     #for i in range(len(temp)-1,0,-2):
     #    print("pair of", str(i)+":",temp[i-1], temp[i])
         # print(temp[i], temp[i-1])
-
     i = 0
     while True: # true i < 10
         # temp = temp
-        print("temp array:",temp)
+        # print("temp array:",temp)
         pre_last = temp[len(temp) - 2]  #
         took_last = temp.pop(len(temp)-1)  # Arithmetical - to right
-        # print()
-
-        print(f"took last: {took_last} and pre_last {pre_last}")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print(f"took pre_last: {pre_last} and last: {took_last}")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         if pre_last+took_last == "00":
             # print(temp[0])
             if temp[0] == '0':
@@ -99,32 +161,28 @@ def booth_algo(m, negative_m ,r):
                 temp.insert(0,'1')
             print(f'temp after insert :00: {temp}')
             continue
-
         elif pre_last+took_last == "01":
             print("idk")
+            # P = P + A
             continue
-
         elif pre_last+took_last == "10":
             print("'10' chance probe:")
-
-
-
             #minor_temp = temp[0:len(temp)]
             # minor_temp.append('0')
-            print("minor_temp = ",minor_temp)
-            if_10 = "".join(str(x) for x in minor_temp) # if_10 must be another????????????????????
+            print("minor_temp = ",temp)
+            temp.append(took_last)
+            if_10 = "".join(str(x) for x in temp) # if_10 must be another????????????????????
             # not 000000011 but 000000110
             temp = binary_array_sum([if_10, S], False, True) # NOT P, but temp insertion and !p=p but temp = temp
-
-
-            print("P == ", P) # 1110 1001 1
+            # print("P == ", P) # 1110 1001 1
             # temp.pop(len(temp)-1)
             if temp[0] == '0':
                 temp.insert(0, '0')
+                print(f"'10' probe inserted {temp}:")
             else:
                 temp.insert(0, '1')
+                print(f"'10' probe inserted {temp}:")
             continue
-
         elif took_last + pre_last == "11":
             print("'11' chance probe:")
             # temp.pop(len(temp)-1)  # Arithmetical - to right
@@ -133,13 +191,11 @@ def booth_algo(m, negative_m ,r):
             else:
                 temp.insert(0, '1')
             result = ''
+            print(f"probe 11 temp:{temp}")
             for j in temp:
                 result += str(j)
             print("result =", result)
             return result
-       # i += 1
-
-
 
 def booth_multiplication(x, y):
     # receive bite string or int
@@ -196,7 +252,8 @@ def booth_multiplication(x, y):
         x_binary_str += arr_x_binary_number[i]
         y_binary_str += arr_y_binary_number[i]
     print(x_binary_str, arr_x_negative_binary_number, y_binary_str)
-    booth_algo(x_binary_str, arr_x_negative_binary_number, y_binary_str)
+    # booth_algo(x_binary_str, arr_x_negative_binary_number, y_binary_str)
+    booth_algo_def(x_binary_str, arr_x_negative_binary_number, y_binary_str)
     # if
 
 
