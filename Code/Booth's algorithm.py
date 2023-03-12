@@ -23,13 +23,12 @@ def booth_algorithm(input_num_x, input_num_y): # only int !
 
     binary_len_set = 8
 
-
     # y = bin(input_num_y)[2:]
 
     if minus_flag_x or minus_flag_y:
         negative_minimum =min(input_num_x, input_num_y)
         x = bin(negative_minimum)[2:]
-        print(f"x:{x}")
+        # print(f"x:{x}")
         if 'b' in x:
             binary_len_set = (len(x) - 1) * 2
         else:
