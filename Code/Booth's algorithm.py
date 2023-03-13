@@ -130,10 +130,13 @@ def booth_algorithm(input_num_x, input_num_y): # only int !
     status_symbol = ''
     if not "not" in status:
         status_symbol = '-'
-    print(f"decimal: {status_symbol}{negative_binary_to_decimal(pretty_res)}")
+    if status_symbol == '-':
+        print(f"decimal: {status_symbol}{negative_binary_to_decimal(result)}")
+    else:
+        print(f"decimal: {status_symbol}{binary_to_decimal(result)}")
     return result
 
-
+from BinaryCalcFunc import binary_to_decimal
 from BinaryCalcFunc import negative_binary_to_decimal
 booth_algorithm(3, -4)
 # booth_algorithm(-8, 2)
