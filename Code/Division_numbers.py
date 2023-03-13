@@ -1,11 +1,16 @@
 # (Division as it is (into a column))
 # first make def for to convert num into binary
 from BinaryCalcFunc import binary_format
+from BinaryCalcFunc import negative_binary_to_decimal
+from BinaryCalcFunc import binary_to_decimal
+from BinaryCalcFunc import binary_array_sum
 def binary_division(input_num_x, input_num_y):
     print(f"~~~~~~~~~~~~~~~binary_division({input_num_x},{input_num_y})~~~~~~~~~~~~~~~~~~~~~~")
     # exeption
     if not isinstance(input_num_x, int) or not isinstance(input_num_y, int):
         print("INPUT INT! ERROR")
+        return None
+    if input_num_y == 0:
         return None
 
     minus_flag_x = False
@@ -48,38 +53,48 @@ def binary_division(input_num_x, input_num_y):
 
     Quotient = list(Quotient)
     Divisor = list(Divisor)
+    print('', Quotient, '\n', Divisor)
     dividend = []
     remainder = '0'
-    for i in range(sequence_count):
+    for i in range(sequence_count//2):
         pre_last_quotient = Quotient[len(Quotient) - 2 - i]  #
         took_last_quotient = Quotient[len(Quotient) - 1 - i]  # quotient Arithmetical - to right
 
         pre_last_divisor = Divisor[len(Divisor) - 2 - i]  #
         took_last_divisor = Divisor[len(Divisor) - 1 - i]  # divisor Arithmetical - to right
-
         quotient_shift_to_right = int(pre_last_quotient + took_last_quotient)
         divisor_shift_to_right = int(pre_last_divisor + took_last_divisor)
-        print(f"i = {i}, quotient_shift_to_right = {quotient_shift_to_right}, divisor_shift_to_right = {divisor_shift_to_right}")
+        print(f"divisor_shift_to_right  = {pre_last_divisor + took_last_divisor}, [{divisor_shift_to_right}]")
+        print(f"quotient_shift_to_right = {pre_last_quotient + took_last_quotient}, [{quotient_shift_to_right}]")
+
+        # print(f"i = {i}, quotient_shift_to_right = {quotient_shift_to_right}, divisor_shift_to_right = {divisor_shift_to_right}")
         # HOW CAN I GET REMAINDER?
-        if quotient_shift_to_right == 1:
-            remainder += '1'
+        #if quotient_shift_to_right >= 1:
+        #    remainder += '1'
 
         # print(f"dividend = {dividend}")
         if divisor_shift_to_right > quotient_shift_to_right:
             # Quotient.pop(len(Quotient) - 1)
             # Divisor.pop(len(Divisor) - 1)
             dividend.insert(0, '1')
+            print('insert')
+            print(f"-------------------")
             continue
         else:
             # Quotient.pop(len(Quotient) - 1)
             # Divisor.pop(len(Divisor) - 1)
             dividend.insert(0, '0')
+            #if quotient_shift_to_right > 0:
+            #    remainder += '1'
+            print(f"-------------------")
             continue
+
 
     result = ''
     for j in dividend:
         result += str(j)
-
+    # remainder = '1'
+    print(f"remainder = {remainder}")
     result = binary_array_sum([result,remainder], True, False)
     result = result.zfill(sequence_count)
     print(f"result: {result} and its {status}")
@@ -94,8 +109,4 @@ def binary_division(input_num_x, input_num_y):
     print(result)
     return result
 
-from BinaryCalcFunc import negative_binary_to_decimal
-from BinaryCalcFunc import binary_to_decimal
-from BinaryCalcFunc import binary_array_sum
-
-binary_division(8,8)
+binary_division(16,4)
