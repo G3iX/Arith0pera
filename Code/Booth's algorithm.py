@@ -7,7 +7,7 @@ def booth_algorithm(input_num_x, input_num_y): # only int !
     print(f"~~~~~~~~~~~~~~~booth_algorithm({input_num_x},{input_num_y})~~~~~~~~~~~~~~~~~~~~~~")
     # exeption
     if not isinstance(input_num_x, int) or not isinstance(input_num_y, int):
-        print("INPUNT INT! ERROR")
+        print("INPUT INT! ERROR")
         return None
 
     minus_flag_x = False
