@@ -70,10 +70,12 @@ def binary_division(input_num_x, input_num_y):
                 continue
         else:
             print(f"Answer = {Answer}")
-    if int(divident_part) != 0:
-        remainder = str(int(divident_part))
+    if len(divident_part) != 0:
+        if int(divident_part) != 0:
+            remainder = str(int(divident_part))
     print(f"Answer = {Answer}")
-    print(f"remainder = {remainder}")
+    print(f"remainder: {remainder}")
+    print(f"remainder in decimal: {binary_to_decimal(remainder)}")
     status_symbol = ''
     if not "not" in status:
         status_symbol = '-'
