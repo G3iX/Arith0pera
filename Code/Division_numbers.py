@@ -12,7 +12,6 @@ def binary_division(input_num_x, input_num_y):
         return None
     if input_num_y == 0:
         return None
-
     minus_flag_x = False
     minus_flag_y = False
     if input_num_x < 0:
@@ -34,64 +33,78 @@ def binary_division(input_num_x, input_num_y):
         else:
             binary_len_set = len(x) * 2
 
+    input_num_x, input_num_y = abs(input_num_x), abs(input_num_y)
+
     try:
-        Quotient  = binary_format(input_num_x, binary_len_set)    # input_num_x_string = Multiplicand
+        Dividend = binary_format(input_num_x, binary_len_set)    # input_num_x_string = Multiplicand
     except:
         print(f"error in formatting {input_num_x} to string in 'booth_algorithm' function")
     try:
-        Divisor  = binary_format(input_num_y, binary_len_set)        # input_num_y_string = Quotient
+        Divisor = binary_format(input_num_y, binary_len_set)        # input_num_y_string = Dividend
     except:
         print(f"error in formatting {input_num_y} to string in 'booth_algorithm' function")
 
-    if len(Quotient) > len(Divisor):
-        print(f"error because {Quotient} is bigger then {Divisor}")
+    if len(Dividend) > len(Divisor):
+        print(f"error because {Dividend} is bigger then {Divisor}")
         return None
 
-
-
-    sequence_count = max(len(Divisor), len(Quotient))
-
-    Quotient = list(Quotient)
-    Divisor = list(Divisor)
-    print('', Quotient, '\n', Divisor)
-    dividend = []
+    sequence_count = max(len(Divisor), len(Dividend)) # N
+    # x \ y = b (+ remainder)
+    #Dividend = list(Dividend) # x
+    #Divisor = list(Divisor) # y
+    #print('', Dividend, '\n', Divisor)
+    quotient = []
     remainder = '0'
-    for i in range(sequence_count//2):
-        pre_last_quotient = Quotient[len(Quotient) - 2 - i]  #
-        took_last_quotient = Quotient[len(Quotient) - 1 - i]  # quotient Arithmetical - to right
+    Divisor = Divisor.lstrip("0")
+    Dividend = Dividend.lstrip("0")
 
-        pre_last_divisor = Divisor[len(Divisor) - 2 - i]  #
+
+    N = sequence_count
+    A = '0' # answer
+    Q = Dividend
+    M = Divisor
+
+
+
+
+
+
+    for i in range(sequence_count//2):
+        pre_last_dividend = Dividend[len(Dividend) - 2 - i]  # x
+        took_last_dividend = Dividend[len(Dividend) - 1 - i]  # dividend Arithmetical - to right
+
+        pre_last_divisor = Divisor[len(Divisor) - 2 - i]  # y
         took_last_divisor = Divisor[len(Divisor) - 1 - i]  # divisor Arithmetical - to right
-        quotient_shift_to_right = int(pre_last_quotient + took_last_quotient)
+        dividend_shift_to_right = int(pre_last_dividend + took_last_dividend)
         divisor_shift_to_right = int(pre_last_divisor + took_last_divisor)
         print(f"divisor_shift_to_right  = {pre_last_divisor + took_last_divisor}, [{divisor_shift_to_right}]")
-        print(f"quotient_shift_to_right = {pre_last_quotient + took_last_quotient}, [{quotient_shift_to_right}]")
+        print(f"dividend_shift_to_right = {pre_last_dividend + took_last_dividend}, [{dividend_shift_to_right}]")
 
-        # print(f"i = {i}, quotient_shift_to_right = {quotient_shift_to_right}, divisor_shift_to_right = {divisor_shift_to_right}")
+        # print(f"i = {i}, dividend_shift_to_right = {dividend_shift_to_right}, divisor_shift_to_right = {divisor_shift_to_right}")
         # HOW CAN I GET REMAINDER?
-        #if quotient_shift_to_right >= 1:
+        #if dividend_shift_to_right >= 1:
         #    remainder += '1'
 
         # print(f"dividend = {dividend}")
-        if divisor_shift_to_right > quotient_shift_to_right:
-            # Quotient.pop(len(Quotient) - 1)
+        if divisor_shift_to_right > dividend_shift_to_right:
+            # Dividend.pop(len(Dividend) - 1)
             # Divisor.pop(len(Divisor) - 1)
-            dividend.insert(0, '1')
+            quotient.insert(0, '1')
             print('insert')
             print(f"-------------------")
             continue
         else:
-            # Quotient.pop(len(Quotient) - 1)
+            # Dividend.pop(len(Dividend) - 1)
             # Divisor.pop(len(Divisor) - 1)
-            dividend.insert(0, '0')
-            #if quotient_shift_to_right > 0:
+            quotient.insert(0, '0')
+            #if dividend_shift_to_right > 0:
             #    remainder += '1'
             print(f"-------------------")
             continue
 
 
     result = ''
-    for j in dividend:
+    for j in quotient:
         result += str(j)
     # remainder = '1'
     print(f"remainder = {remainder}")
