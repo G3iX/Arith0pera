@@ -36,6 +36,15 @@ def binary_array_sum(input_array, we_need_string, if_output_array_in_string): # 
         # print('before joint(arr int)', result)
         return result
 
+def binary_subtraction(x, y):
+    x_int = int(x, 2)
+    y_int = int(y, 2)
+    result_int = x_int - y_int
+    result_str = bin(result_int)[2:]
+    max_len = max(len(x), len(y), len(result_str))
+    result_str = result_str.zfill(max_len)
+    return result_str
+
 def binary_format(number_to_transform, bits_shown):
     try:
         s = bin(number_to_transform & int("1"*bits_shown, 2))[2:]
