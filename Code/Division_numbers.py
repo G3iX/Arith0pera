@@ -57,7 +57,7 @@ def binary_division(input_num_x, input_num_y):
     remainder = '0'
     Divisor = Divisor.lstrip("0")
     Dividend = Dividend.lstrip("0")
-
+    print(Dividend, Divisor, )
 
     N = sequence_count
     A = '0' # answer
@@ -67,18 +67,19 @@ def binary_division(input_num_x, input_num_y):
 
     # берем к-во элементов раных длинне делителя и сам делитель (делитель меньше делимого)
 
+    # print(len(Divisor)) = 3
 
-
-    for i in range(sequence_count):
-        pre_last_dividend = Dividend[i - 1]  # x
-        took_last_dividend = Dividend[i]  # dividend Arithmetical - to right
-
-        pre_last_divisor = Divisor[i - 1]  # y
-        took_last_divisor = Divisor[i]   # divisor Arithmetical - to right
-        dividend_shift_to_right = int(pre_last_dividend + took_last_dividend)
-        divisor_shift_to_right = int(pre_last_divisor + took_last_divisor)
-        print(f"divisor_shift_to_right  = {pre_last_divisor + took_last_divisor}, [{divisor_shift_to_right}]")
-        print(f"dividend_shift_to_right = {pre_last_dividend + took_last_dividend}, [{dividend_shift_to_right}]")
+    for i in range(sequence_count//2-1 ):
+        pre_last_dividend = Dividend[i:len(Divisor)+1+i]  # x
+        # took_last_dividend = Dividend[i]  # dividend Arithmetical - to right
+        print(pre_last_dividend)
+        # pre_last_divisor = Divisor[i - 1]  # y
+        # took_last_divisor = Divisor[i]   # divisor Arithmetical - to right
+        if len(pre_last_dividend) > 0:
+            dividend_shift_to_right = int(pre_last_dividend)
+        divisor_shift_to_right = int(Divisor)
+        print(f"divisor_shift_to_right  = {Divisor}, [{divisor_shift_to_right}]")
+        print(f"dividend_shift_to_right = {pre_last_dividend}, [{dividend_shift_to_right}]")
 
         # print(f"i = {i}, dividend_shift_to_right = {dividend_shift_to_right}, divisor_shift_to_right = {divisor_shift_to_right}")
         # HOW CAN I GET REMAINDER?
@@ -122,4 +123,4 @@ def binary_division(input_num_x, input_num_y):
     print(result)
     return result
 
-binary_division(16,4)
+binary_division(22,3)
