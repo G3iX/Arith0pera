@@ -65,16 +65,16 @@ def binary_division(input_num_x, input_num_y):
     M = Divisor
 
 
+    # берем к-во элементов раных длинне делителя и сам делитель (делитель меньше делимого)
 
 
 
+    for i in range(sequence_count):
+        pre_last_dividend = Dividend[i - 1]  # x
+        took_last_dividend = Dividend[i]  # dividend Arithmetical - to right
 
-    for i in range(sequence_count//2):
-        pre_last_dividend = Dividend[len(Dividend) - 2 - i]  # x
-        took_last_dividend = Dividend[len(Dividend) - 1 - i]  # dividend Arithmetical - to right
-
-        pre_last_divisor = Divisor[len(Divisor) - 2 - i]  # y
-        took_last_divisor = Divisor[len(Divisor) - 1 - i]  # divisor Arithmetical - to right
+        pre_last_divisor = Divisor[i - 1]  # y
+        took_last_divisor = Divisor[i]   # divisor Arithmetical - to right
         dividend_shift_to_right = int(pre_last_dividend + took_last_dividend)
         divisor_shift_to_right = int(pre_last_divisor + took_last_divisor)
         print(f"divisor_shift_to_right  = {pre_last_divisor + took_last_divisor}, [{divisor_shift_to_right}]")
