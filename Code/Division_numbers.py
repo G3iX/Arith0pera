@@ -4,8 +4,9 @@ from BinaryCalcFunc import binary_format
 from BinaryCalcFunc import negative_binary_to_decimal
 from BinaryCalcFunc import binary_to_decimal
 from BinaryCalcFunc import binary_array_sum
+from BinaryCalcFunc import binary_subtraction
 def binary_division(input_num_x, input_num_y):
-    print(f"~~~~~~~~~~~~~~~binary_division({input_num_x},{input_num_y})~~~~~~~~~~~~~~~~~~~~~~")
+    print(f"~~~~~~binary_division({input_num_x},{input_num_y})~~~~~")
     # exeption
     if not isinstance(input_num_x, int) or not isinstance(input_num_y, int):
         print("INPUT INT! ERROR")
@@ -48,89 +49,38 @@ def binary_division(input_num_x, input_num_y):
         print(f"error because {Dividend} is bigger then {Divisor}")
         return None
 
-    sequence_count = max(len(Divisor), len(Dividend)) # N
-    # x \ y = b (+ remainder)
-    #Dividend = list(Dividend) # x
-    #Divisor = list(Divisor) # y
-    #print('', Dividend, '\n', Divisor)
-    quotient = []
     remainder = '0'
     Divisor = Divisor.lstrip("0")
     Dividend = Dividend.lstrip("0")
-    print(Dividend, Divisor, )
 
+    Answer = ''
+    divident_part = ''
+    for i in range(len(Dividend)):
+        divident_part += Dividend[i]
+        # print(f"divident_part = {divident_part}, adding Dividend[i({i}) = {Dividend[i]}]", end=' ')
+        if len(divident_part) < len(Dividend):
+            if int(Divisor) > int(divident_part):   # if 3 > part of Dividend
+                # print('')
+                Answer += '0'
+            else:                                   # if 3 < part of Dividend
 
-    # берем к-во элементов раных длинне делителя и сам делитель (делитель меньше делимого)
-
-    # print(len(Divisor)) = 3
-    Answear = ''
-    for i in range(sequence_count):
-        # if len(Dividend) > len(Divisor):
-        #    Answear += '0' * (len(Dividend)-len(Divisor)-1)
-        # print(Answear) # 00
-        # print(took_dividend)
-        Temp = ''
-        Temp += Dividend[len(Temp)]
-        if len(Temp) < len(Dividend):
-            if int(Divisor) > int(Temp):
-                Answear += '0'
-                continue
-            else:
-                Answear += '1'
+                divident_part = binary_subtraction(divident_part, Divisor).lstrip('0')
+                # print(f'update divident_part = {divident_part}')
+                Answer += '1'
                 continue
         else:
-            print(Answear)
-            return Answear
-        took_dividend = Dividend[i:len(Divisor)+1+i]  # x   i:len(Divisor)+1+i
-
-
-        if len(took_dividend) > len(Divisor): # 0
-            dividend_shift_to_right = int(took_dividend)
-
-        divisor_shift_to_right = int(Divisor)
-        print(f"divisor_shift_to_right  = {Divisor}, [{divisor_shift_to_right}]")
-        print(f"dividend_shift_to_right = {took_dividend}, [{dividend_shift_to_right}]")
-
-        # print(f"i = {i}, dividend_shift_to_right = {dividend_shift_to_right}, divisor_shift_to_right = {divisor_shift_to_right}")
-        # HOW CAN I GET REMAINDER?
-        #if dividend_shift_to_right >= 1:
-        #    remainder += '1'
-
-        # print(f"dividend = {dividend}")
-        if divisor_shift_to_right > dividend_shift_to_right:
-            # Dividend.pop(len(Dividend) - 1)
-            # Divisor.pop(len(Divisor) - 1)
-            quotient.insert(0, '1')
-            print('insert')
-            print(f"-------------------")
-            continue
-        else:
-            # Dividend.pop(len(Dividend) - 1)
-            # Divisor.pop(len(Divisor) - 1)
-            quotient.insert(0, '0')
-            #if dividend_shift_to_right > 0:
-            #    remainder += '1'
-            print(f"-------------------")
-            continue
-
-
-    result = ''
-    for j in quotient:
-        result += str(j)
-    # remainder = '1'
+            print(f"Answer = {Answer}")
+    if int(divident_part) != 0:
+        remainder = str(int(divident_part))
+    print(f"Answer = {Answer}")
     print(f"remainder = {remainder}")
-    result = binary_array_sum([result,remainder], True, False)
-    result = result.zfill(sequence_count)
-    print(f"result: {result} and its {status}")
     status_symbol = ''
     if not "not" in status:
         status_symbol = '-'
     if status_symbol == '-':
-        print(f"decimal: {status_symbol}{negative_binary_to_decimal(result)}")
+        print(f"Answer in decimal: {status_symbol}{negative_binary_to_decimal(Answer)}")
     else:
-        print(f"decimal: {status_symbol}{binary_to_decimal(result)}")
-    return result
-    print(result)
-    return result
+        print(f"Answer in decimal: {status_symbol}{binary_to_decimal(Answer)}")
+    return Answer
 
-binary_division(22,3)
+binary_division(16,4)
