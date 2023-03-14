@@ -59,27 +59,37 @@ def binary_division(input_num_x, input_num_y):
     Dividend = Dividend.lstrip("0")
     print(Dividend, Divisor, )
 
-    N = sequence_count
-    A = '0' # answer
-    Q = Dividend
-    M = Divisor
-
 
     # берем к-во элементов раных длинне делителя и сам делитель (делитель меньше делимого)
 
     # print(len(Divisor)) = 3
+    Answear = ''
+    for i in range(sequence_count):
+        # if len(Dividend) > len(Divisor):
+        #    Answear += '0' * (len(Dividend)-len(Divisor)-1)
+        # print(Answear) # 00
+        # print(took_dividend)
+        Temp = ''
+        Temp += Dividend[len(Temp)]
+        if len(Temp) < len(Dividend):
+            if int(Divisor) > int(Temp):
+                Answear += '0'
+                continue
+            else:
+                Answear += '1'
+                continue
+        else:
+            print(Answear)
+            return Answear
+        took_dividend = Dividend[i:len(Divisor)+1+i]  # x   i:len(Divisor)+1+i
 
-    for i in range(sequence_count//2-1 ):
-        pre_last_dividend = Dividend[i:len(Divisor)+1+i]  # x
-        # took_last_dividend = Dividend[i]  # dividend Arithmetical - to right
-        print(pre_last_dividend)
-        # pre_last_divisor = Divisor[i - 1]  # y
-        # took_last_divisor = Divisor[i]   # divisor Arithmetical - to right
-        if len(pre_last_dividend) > 0:
-            dividend_shift_to_right = int(pre_last_dividend)
+
+        if len(took_dividend) > len(Divisor): # 0
+            dividend_shift_to_right = int(took_dividend)
+
         divisor_shift_to_right = int(Divisor)
         print(f"divisor_shift_to_right  = {Divisor}, [{divisor_shift_to_right}]")
-        print(f"dividend_shift_to_right = {pre_last_dividend}, [{dividend_shift_to_right}]")
+        print(f"dividend_shift_to_right = {took_dividend}, [{dividend_shift_to_right}]")
 
         # print(f"i = {i}, dividend_shift_to_right = {dividend_shift_to_right}, divisor_shift_to_right = {divisor_shift_to_right}")
         # HOW CAN I GET REMAINDER?
