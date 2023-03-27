@@ -40,7 +40,7 @@ def binary_subtraction(x, y):
     x_int = int(x, 2)
     y_int = int(y, 2)
     result_int = x_int - y_int
-    result_str = bin(result_int)[2:]
+    result_str = binary_format(result_int,16)
     max_len = max(len(x), len(y), len(result_str))
     result_str = result_str.zfill(max_len)
     return result_str

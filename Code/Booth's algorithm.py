@@ -126,7 +126,7 @@ def booth_algorithm(input_num_x, input_num_y): # only int !
         pretty_res = result[len(result)-8:len(result)] # -sequence_count
     else:
         pretty_res = result[len(result) - sequence_count:len(result)]  # -sequence_count
-    print(f"result:{pretty_res} and its {status}")
+    print(f"result: {pretty_res} and its {status}")
     status_symbol = ''
     if not "not" in status:
         status_symbol = '-'

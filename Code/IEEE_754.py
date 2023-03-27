@@ -6,6 +6,8 @@ import math
 
 
 def iee_addition(input_num_x, input_num_y):
+    # to ieee_754 encoding:
+
     if not isinstance(input_num_x, float) or not isinstance(input_num_y, float): #or max(input_num_y, input_num_x) > 128:
         print("INPUT INT! ERROR")
         return None
@@ -41,7 +43,7 @@ def iee_addition(input_num_x, input_num_y):
     binary_y_exponent = binary_format(len(binary_y_exponent),8)
 
     from BinaryCalcFunc import binary_array_sum
-    # from BinaryCalcFunc import binary_subtraction
+
 
     if x_sign_bit == 0 or x_sign_bit == 1:
         binary_x_exponent = binary_array_sum([binary_x_exponent, one_hundred_twenty_seven_binary], True, True)
@@ -92,8 +94,27 @@ def iee_addition(input_num_x, input_num_y):
     print(f"full {status_x}{input_num_x} representation: {int(x_sign_bit)}.{binary_x_exponent}.{mantissa_x_binary}")
     print(f"full {status_y}{input_num_y} representation: {int(y_sign_bit)}.{binary_y_exponent}.{mantissa_y_binary}")
 
+    # actual addition
+    #if binary_x_exponent == binary_y_exponent:
+    from BinaryCalcFunc import binary_subtraction
+    if input_num_x > input_num_y:
+        number_1 = input_num_x
+        number_2 = min(input_num_x,input_num_y)
+        binary_summ_number_exponent = binary_x_exponent
+        exponent_difference = binary_subtraction(binary_x_exponent, binary_y_exponent).lstrip('0')
+    else:
+        number_1 = max(input_num_x, input_num_y)
+        number_2 = min(input_num_x, input_num_y)
+        binary_summ_number_exponent = binary_y_exponent
+        exponent_difference = binary_subtraction(binary_y_exponent, binary_x_exponent).lstrip('0')
 
-iee_addition(-54.4,85.125) #54.4
+
+
+    print(exponent_difference)
+    print(number_1, number_2)
+
+
+iee_addition(-54.4,85.125) #54.4 85.125
 
 # 54.4
 # 0 10000100    10110011001100110011010
