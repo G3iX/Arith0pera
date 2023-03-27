@@ -91,30 +91,67 @@ def iee_addition(input_num_x, input_num_y):
     if y_sign_bit == 1:
         status_y = '-'
 
-    print(f"full {status_x}{input_num_x} representation: {int(x_sign_bit)}.{binary_x_exponent}.{mantissa_x_binary}")
-    print(f"full {status_y}{input_num_y} representation: {int(y_sign_bit)}.{binary_y_exponent}.{mantissa_y_binary}")
+    print(f"full (x) {status_x}{input_num_x} representation: {int(x_sign_bit)}.{binary_x_exponent}.{mantissa_x_binary}")
+    print(f"full (y) {status_y}{input_num_y} representation: {int(y_sign_bit)}.{binary_y_exponent}.{mantissa_y_binary}")
 
     # actual addition
     #if binary_x_exponent == binary_y_exponent:
     from BinaryCalcFunc import binary_subtraction
-    if input_num_x > input_num_y:
+    from BinaryCalcFunc import binary_to_decimal
+
+    Exponent_x = binary_to_decimal(binary_x_exponent)
+    Exponent_y = binary_to_decimal(binary_y_exponent)
+
+
+    if input_num_x >= input_num_y:
         number_1 = input_num_x
         number_2 = min(input_num_x,input_num_y)
-        binary_summ_number_exponent = binary_x_exponent
-        exponent_difference = binary_subtraction(binary_x_exponent, binary_y_exponent).lstrip('0')
+        # binary_summ_number_exponent = binary_x_exponent
+        # Exponent_x > Exponent_y
+        Exponent_number_1 = Exponent_x - 127
+        Exponent_number_2 = Exponent_y - 127
+        # exponent_difference = binary_subtraction(binary_x_exponent, binary_y_exponent).lstrip('0')
     else:
         number_1 = max(input_num_x, input_num_y)
         number_2 = min(input_num_x, input_num_y)
-        binary_summ_number_exponent = binary_y_exponent
-        exponent_difference = binary_subtraction(binary_y_exponent, binary_x_exponent).lstrip('0')
+        # binary_summ_number_exponent = binary_y_exponent
+        # exponent_difference = binary_subtraction(binary_y_exponent, binary_x_exponent).lstrip('0')
+        # Exponent_x < Exponent_y
+        Exponent_number_2 = Exponent_x - 127
+        Exponent_number_1 = Exponent_y - 127
+    # print(mantissa_x_binary)
+    # print(exponent_difference)
+    # print(number_1, number_2)
+    # print(Exponent_number_1, Exponent_number_2)
+    if Exponent_number_1 != Exponent_number_2:
+        # choose smaller exponent
+        check = min(Exponent_number_1, Exponent_number_2)
+        max_check = max(Exponent_number_2, Exponent_number_1)
+        if check == Exponent_number_1:
+            #print("#choose smaller exponent 1(x)")
+            bigger_mantissa = mantissa_y_binary[0:max_check]
+            bigger_exponent = binary_y_exponent
+            bigger_num_sing = y_sign_bit
+            prolongue_smaller_mantissa_part = mantissa_x_binary[0:Exponent_number_1]
+        if check == Exponent_number_2:
+            #print("#choose smaller exponent 2(y)")
+            bigger_mantissa = mantissa_x_binary[0:max_check]
+            bigger_num_sing = x_sign_bit
+            bigger_exponent = binary_x_exponent
+            prolongue_smaller_mantissa_part = mantissa_y_binary[0:Exponent_number_2]
 
+        # print(prolongue_smaller_mantissa_part)
+        prolongue_smaller_mantissa_part = prolongue_smaller_mantissa_part.zfill(max_check)
+        # print(prolongue_smaller_mantissa_part)
+        # adding mantissas
 
+        number_from_mantissas_sum = binary_array_sum([prolongue_smaller_mantissa_part, bigger_mantissa], True, True)
+        print(f"prolonged smaller exponent mantissa = {prolongue_smaller_mantissa_part}, bigger exponent mantissa part = {bigger_mantissa}, their summ = {number_from_mantissas_sum}")
+        # print(number_from_mantissas_sum)
+        new_ieee_754_number = str(int(bigger_num_sing))+ bigger_exponent +  number_from_mantissas_sum[::-1].zfill(23)[::-1] # 01000010110100110000000000000000
+        print(f"sum = {new_ieee_754_number}")
 
-    print(exponent_difference)
-    print(number_1, number_2)
-
-
-iee_addition(-54.4,85.125) #54.4 85.125
+iee_addition(12.125,54.4, ) # 54.4, 12.125 I received 13.25 not 66.525 - error somewhere in mantissa migration (notes)
 
 # 54.4
 # 0 10000100    10110011001100110011010
