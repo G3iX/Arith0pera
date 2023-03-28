@@ -57,7 +57,6 @@ def binary_division(input_num_x, input_num_y):
     divident_part = ''
     for i in range(len(Dividend)):
         divident_part += Dividend[i]
-        # print(f"divident_part = {divident_part}, adding Dividend[i({i}) = {Dividend[i]}]", end=' ')
         if len(divident_part) < len(Dividend):
             if int(Divisor) > int(divident_part):   # if 3 > part of Dividend
                 # print('')

@@ -70,17 +70,12 @@ def booth_algorithm(input_num_x, input_num_y): # only int !
     #while True:
         pre_last = temp[len(temp) - 2]  #
         took_last = temp[len(temp) - 1]  # Arithmetical - to right
-        # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        # print(f"took pre_last: {pre_last} and last: {took_last}")
-        # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         if pre_last+took_last == "00":
             temp.pop(len(temp) - 1)
             if temp[0] == '0':
                 temp.insert(0,'0')
             else:
                 temp.insert(0,'1')
-            # print("'00' chance probe:")
-            # print(f"temp after insert :00: {temp}")
             continue
         elif pre_last+took_last == "01":
             if_10 = "".join(str(x) for x in temp)
@@ -88,12 +83,8 @@ def booth_algorithm(input_num_x, input_num_y): # only int !
             temp.pop(len(temp) - 1)
             if temp[0] == '0':
                 temp.insert(0, '0')
-                # print("'01' chance probe:")
-                # print(f"'01' probe inserted {temp}:")
             else:
                 temp.insert(0, '1')
-                # print("'01' chance probe:")
-                # print(f"'01' probe inserted {temp}:")
             continue
         elif pre_last+took_last == "10":
             if_10 = "".join(str(x) for x in temp)
@@ -101,12 +92,8 @@ def booth_algorithm(input_num_x, input_num_y): # only int !
             temp.pop(len(temp) - 1)
             if temp[0] == '0':
                 temp.insert(0, '0')
-                # print("'10' chance probe:")
-                # print(f"'10' probe inserted {temp}:")
             else:
                 temp.insert(0, '1')
-                # print("'10' chance probe:")
-                # print(f"'10' probe inserted {temp}:")
             continue
         elif took_last + pre_last == "11":
             temp.pop(len(temp) - 1)
@@ -119,8 +106,6 @@ def booth_algorithm(input_num_x, input_num_y): # only int !
     result = ''
     for j in temp:
         result += str(j)
-            # print("'11' chance probe:")
-            # print(f"result = {result}") # and int {int(result[1:len(result)], 2)} and {result[1:len(result)]}")
     pretty_res = result
     if 4 < sequence_count < 8:
         pretty_res = result[len(result)-8:len(result)] # -sequence_count
