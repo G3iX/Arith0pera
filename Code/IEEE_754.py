@@ -28,6 +28,9 @@ def iee_addition(input_num_x, input_num_y):
     binary_x_exponent = binary_format(math.floor(input_num_x),binary_len_set).lstrip('0')#[::-1]
     binary_y_exponent = binary_format(math.floor(input_num_y),binary_len_set).lstrip('0')#[::-1]
 
+    print(f"binary exponent from the start y= {binary_y_exponent},x= {binary_x_exponent} ")
+    dot_number_x = binary_x_exponent[0]
+    dot_number_y = binary_y_exponent[0]
 
     binary_x_exponent = binary_x_exponent[1:len(binary_x_exponent)]
     binary_y_exponent = binary_y_exponent[1:len(binary_y_exponent)]
@@ -35,7 +38,7 @@ def iee_addition(input_num_x, input_num_y):
     mantissa_x_binary = binary_x_exponent
     mantissa_y_binary = binary_y_exponent
     # print(f"mantissa_x_part = {mantissa_x_binary}")
-    # print(f"mantissa_y_part = {mantissa_y_binary}")
+    print(f"mantissa_y_part = {mantissa_y_binary}")
 
     one_hundred_twenty_seven_binary = binary_format(127, 8)
 
@@ -128,17 +131,26 @@ def iee_addition(input_num_x, input_num_y):
         check = min(Exponent_number_1, Exponent_number_2)
         max_check = max(Exponent_number_2, Exponent_number_1)
         if check == Exponent_number_1:
-            #print("#choose smaller exponent 1(x)")
+            # x is smaller (have smaller exponent check)
             bigger_mantissa = mantissa_y_binary[0:max_check]
             bigger_exponent = binary_y_exponent
             bigger_num_sing = y_sign_bit
-            prolongue_smaller_mantissa_part = mantissa_x_binary[0:Exponent_number_1]
+            bigger_mantissa_start = dot_number_y
+            if Exponent_number_2 > Exponent_number_1:
+                prolongue_smaller_mantissa_part = bigger_mantissa_start + mantissa_x_binary[0:Exponent_number_1 + 2]
+            else:
+                prolongue_smaller_mantissa_part = mantissa_x_binary[0:Exponent_number_1 + 2]
         if check == Exponent_number_2:
-            #print("#choose smaller exponent 2(y)")
-            bigger_mantissa = mantissa_x_binary[0:max_check]
+            # y is smaller (have smaller exponent check)
+            bigger_mantissa = mantissa_x_binary[0:max_check + 2]
             bigger_num_sing = x_sign_bit
             bigger_exponent = binary_x_exponent
-            prolongue_smaller_mantissa_part = mantissa_y_binary[0:Exponent_number_2]
+
+            bigger_mantissa_start = dot_number_x
+            if Exponent_number_2 < Exponent_number_1:
+                prolongue_smaller_mantissa_part = bigger_mantissa_start + mantissa_y_binary[0:Exponent_number_2 + 2]
+            else:
+                prolongue_smaller_mantissa_part =  mantissa_y_binary[0:Exponent_number_2 + 2]
 
         # print(prolongue_smaller_mantissa_part)
         prolongue_smaller_mantissa_part = prolongue_smaller_mantissa_part.zfill(max_check)
@@ -148,11 +160,19 @@ def iee_addition(input_num_x, input_num_y):
         number_from_mantissas_sum = binary_array_sum([prolongue_smaller_mantissa_part, bigger_mantissa], True, True)
         print(f"prolonged smaller exponent mantissa = {prolongue_smaller_mantissa_part}, bigger exponent mantissa part = {bigger_mantissa}, their summ = {number_from_mantissas_sum}")
         # print(number_from_mantissas_sum)
-        new_ieee_754_number = str(int(bigger_num_sing))+ bigger_exponent +  number_from_mantissas_sum[::-1].zfill(23)[::-1] # 01000010110100110000000000000000
+        # bigger exponent is addition of mantissa exponent elements
+
+        # bigger_exponent = from mantissas len?
+
+        new_sum_exponent = binary_array_sum([bigger_exponent, one_hundred_twenty_seven_binary], True, True)
+        # print(bigger_exponent)
+
+        new_ieee_754_number = str(int(bigger_num_sing)) + "." + bigger_exponent + "." + number_from_mantissas_sum[::-1].zfill(23)[::-1] # 01000010110100110000000000000000
         print(f"sum = {new_ieee_754_number}")
 
-iee_addition(12.125,54.4, ) # 54.4, 12.125 I received 13.25 not 66.525 - error somewhere in mantissa migration (notes)
+iee_addition(35.75,20.5) # 54.4, 12.125 I received 13.25 not 66.525 - error somewhere in mantissa migration (notes) 12.125,54.4,
 
+#iee_addition(54.4, 12.125)
 # 54.4
 # 0 10000100    10110011001100110011010
 # 0 10000100    10110011001100110011010
