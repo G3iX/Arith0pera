@@ -1,7 +1,7 @@
 # `Arithmetic operations on binary numbers`
 
 ![This is an image](https://img.shields.io/badge/Python-100%25-orange)
-![This is an image](https://img.shields.io/badge/version-0.1-lightblue)
+![This is an image](https://img.shields.io/badge/version-0.4.9-lightblue)
 
 Investigate the algorithms used in microprocessors for multiplication and division of integers and approaches to working with real numbers
 
